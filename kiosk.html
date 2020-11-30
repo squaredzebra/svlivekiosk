@@ -1,0 +1,38 @@
+<html>
+<head>
+<title>Serraview Locator kiosk wrapper</title>
+</head>
+<body style="margin:0px;padding:0px;overflow:hidden">
+<script type="text/javascript">
+
+var IDLE_TIMEOUT = 10; //seconds
+var _idleSecondsCounter = 0;
+
+document.onclick = function () {
+    _idleSecondsCounter = 0;
+};
+
+document.onmousemove = function () {
+    _idleSecondsCounter = 0;
+};
+
+document.onkeypress = function () {
+    _idleSecondsCounter = 0;
+};
+
+window.setInterval(CheckIdleTime, 1000);
+
+function CheckIdleTime() {
+    _idleSecondsCounter++;
+    var oPanel = document.getElementById("SecondsUntilExpire");
+    if (oPanel)
+        oPanel.innerHTML = (IDLE_TIMEOUT - _idleSecondsCounter) + "";
+    if (_idleSecondsCounter >= IDLE_TIMEOUT) {	
+        location.reload();
+    }
+}
+
+</script> 
+<iframe src="https://transport.serraview.com/locator/" frameborder="0" style="overflow:hidden;height:100%;width:100%" height="100%" width="100%" />
+</body>
+</html>
